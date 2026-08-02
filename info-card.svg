@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 378" width="520" height="378" role="img" aria-label="Profile info card">
+  <style>
+    .name { font-family:sans-serif; font-size:26px; font-weight:700; fill:#e6edf3; }
+    .role { font-family:sans-serif; font-size:14px; fill:#58a6ff; }
+    .h    { font-family:monospace; font-size:11px; letter-spacing:2px; fill:#8b949e; }
+    .cht  { font-family:monospace; font-size:12px; fill:#3fb950; }
+    .now  { font-family:sans-serif; font-size:13px; fill:#e6edf3; }
+    .lnk  { font-family:monospace; font-size:12px; fill:#58a6ff; }
+    .sep  { font-family:sans-serif; font-size:13px; fill:#8b949e; }
+    .cur  { fill:#3fb950; animation:blink 1.1s steps(1) infinite; }
+    /* Card body never animates opacity (stays visible in a frozen frame); the
+       intro only slides it up. */
+    .in   { animation:rise .6s ease-out both; }
+    @keyframes blink { 0%,50% { opacity:1; } 51%,100% { opacity:0; } }
+    @keyframes rise  { from { transform:translateY(10px); } to { transform:translateY(0); } }
+    @media (prefers-reduced-motion: reduce) {
+      .cur { animation:none; opacity:1; }
+      .in  { animation:none; transform:none; }
+    }
+  </style>
+  <rect width="520" height="378" rx="12" fill="#0d1117"/>
+  <g class="in">
+    <text class="name" x="28" y="58" textLength="315.0" lengthAdjust="spacing">Harsimran Preet Singh</text>
+    <rect class="cur" x="351.0" y="40" width="11" height="22" rx="2"/>
+    <text class="role" x="28" y="84">AI Product Manager    ·    New Delhi, India</text>
+    <text class="h" x="28" y="120">STACK</text>
+    <g class="chip"><rect x="28.0" y="134" width="102.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="37.0" y="149" textLength="84.0" lengthAdjust="spacingAndGlyphs">LLMs / GenAI</text></g>
+    <g class="chip"><rect x="138.0" y="134" width="130.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="147.0" y="149" textLength="112.0" lengthAdjust="spacingAndGlyphs">Product Strategy</text></g>
+    <g class="chip"><rect x="276.0" y="134" width="39.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="285.0" y="149" textLength="21.0" lengthAdjust="spacingAndGlyphs">RAG</text></g>
+    <g class="chip"><rect x="323.0" y="134" width="74.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="332.0" y="149" textLength="56.0" lengthAdjust="spacingAndGlyphs">Voice AI</text></g>
+    <g class="chip"><rect x="405.0" y="134" width="60.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="414.0" y="149" textLength="42.0" lengthAdjust="spacingAndGlyphs">Python</text></g>
+    <g class="chip"><rect x="28.0" y="164" width="81.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="37.0" y="179" textLength="63.0" lengthAdjust="spacingAndGlyphs">LangChain</text></g>
+    <g class="chip"><rect x="117.0" y="164" width="39.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="126.0" y="179" textLength="21.0" lengthAdjust="spacingAndGlyphs">SQL</text></g>
+    <g class="chip"><rect x="164.0" y="164" width="39.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="173.0" y="179" textLength="21.0" lengthAdjust="spacingAndGlyphs">AWS</text></g>
+    <g class="chip"><rect x="211.0" y="164" width="109.0" height="22" rx="6" fill="#0f151d" stroke="#232b36"/><text class="cht" x="220.0" y="179" textLength="91.0" lengthAdjust="spacingAndGlyphs">System Design</text></g>
+    <text class="h" x="28" y="214">NOW</text>
+    <circle cx="31" cy="230" r="3" fill="#3fb950"/>
+    <text class="now" x="42" y="234">Scaling LLM voicebots to 1M+ daily calls @ Oriserve AI</text>
+    <circle cx="31" cy="252" r="3" fill="#3fb950"/>
+    <text class="now" x="42" y="256">Building prompt-eval &amp; LLM cost-forecasting tooling</text>
+    <circle cx="31" cy="274" r="3" fill="#3fb950"/>
+    <text class="now" x="42" y="278">Exploring agentic RAG pipelines at real-time scale</text>
+    <text class="h" x="28" y="314">LINKS</text>
+    <text class="lnk" x="28.0" y="334" textLength="42.0" lengthAdjust="spacing">GitHub</text>
+    <text class="sep" x="77.0" y="334">·</text>
+    <text class="lnk" x="92.0" y="334" textLength="56.0" lengthAdjust="spacing">LinkedIn</text>
+    <text class="sep" x="155.0" y="334">·</text>
+    <text class="lnk" x="170.0" y="334" textLength="35.0" lengthAdjust="spacing">Email</text>
+  </g>
+  <rect x="0.5" y="0.5" width="519" height="377" rx="12" fill="none" stroke="#232b36"/>
+</svg>

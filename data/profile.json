@@ -1,0 +1,16 @@
+{
+  "name": "Harsimran Preet Singh",
+  "role": "AI Product Manager",
+  "location": "New Delhi, India",
+  "stack": ["LLMs / GenAI", "Product Strategy", "RAG", "Voice AI", "Python", "LangChain", "SQL", "AWS", "System Design"],
+  "now": [
+    "Scaling LLM voicebots to 1M+ daily calls @ Oriserve AI",
+    "Building prompt-eval & LLM cost-forecasting tooling",
+    "Exploring agentic RAG pipelines at real-time scale"
+  ],
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/harsimran-preet" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/harsimran-p-singh" },
+    { "label": "Email", "url": "mailto:computerhpsingh@gmail.com" }
+  ]
+}
