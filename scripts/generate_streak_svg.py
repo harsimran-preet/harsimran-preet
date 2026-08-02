@@ -3,21 +3,54 @@
 Works standalone; designed to run in a GitHub Action daily to stay live.
 Usage: python generate_streak_svg.py [username] [output.svg]
 """
-import sys, json, os, datetime, urllib.request
+import sys, json, os, datetime, subprocess, urllib.request
 
 USER = sys.argv[1] if len(sys.argv) > 1 else "harsimran-preet"
 OUT  = sys.argv[2] if len(sys.argv) > 2 else "streak.svg"
 
-def get_data(user):
-    url = f"https://github-contributions-api.jogruber.de/v4/{user}?y=last"
+# GitHub's own GraphQL calendar (real-time, reflects the "include private
+# contributions on profile" setting) instead of a third-party API that caches.
+# Any token reads the PUBLIC calendar: GH_TOKEN in CI (Actions GITHUB_TOKEN),
+# else the local `gh` session. No token that can read private repos is required
+# once private contributions are made public in profile settings.
+GQL = ("query($login:String!){user(login:$login){contributionsCollection{"
+       "contributionCalendar{total:totalContributions weeks{contributionDays{"
+       "date contributionCount contributionLevel}}}}}}")
+_LEVEL = {"NONE": 0, "FIRST_QUARTILE": 1, "SECOND_QUARTILE": 2,
+          "THIRD_QUARTILE": 3, "FOURTH_QUARTILE": 4}
+
+def _token():
+    t = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if t:
+        return t
     try:
-        with urllib.request.urlopen(url, timeout=25) as r:
-            return json.loads(r.read().decode())
+        return subprocess.run(["gh", "auth", "token"], capture_output=True,
+                              text=True, timeout=10).stdout.strip()
+    except Exception:
+        return ""
+
+def get_data(user):
+    try:
+        body = json.dumps({"query": GQL, "variables": {"login": user}}).encode()
+        req = urllib.request.Request(
+            "https://api.github.com/graphql", data=body,
+            headers={"Authorization": f"bearer {_token()}",
+                     "Content-Type": "application/json",
+                     "User-Agent": "profile-readme-bot/1.0"})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            payload = json.loads(r.read().decode())
+        if payload.get("errors"):
+            raise RuntimeError(payload["errors"])
+        cal = payload["data"]["user"]["contributionsCollection"]["contributionCalendar"]
+        contribs = [{"date": d["date"], "count": d["contributionCount"],
+                     "level": _LEVEL.get(d["contributionLevel"], 0)}
+                    for w in cal["weeks"] for d in w["contributionDays"]]
+        return {"contributions": contribs, "total": {"lastYear": cal["total"]}}
     except Exception as e:
-        # fallback to a local snapshot if the API is unreachable
+        # fallback to a local snapshot if the API is unreachable / unauthorized
         here = os.path.join(os.path.dirname(os.path.abspath(__file__)), "contrib.json")
         if os.path.exists(here):
-            print("API failed (%s); using local contrib.json" % e)
+            print("GraphQL failed (%s); using local contrib.json" % e)
             return json.load(open(here))
         raise
 

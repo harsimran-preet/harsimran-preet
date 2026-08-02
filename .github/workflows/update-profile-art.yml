@@ -1,6 +1,6 @@
 name: Update profile art
 
-# Refreshes the contribution graph SVG daily from real, public data (no auth).
+# Refreshes the contribution graph SVG daily from real data (GitHub GraphQL).
 # Runs daily, on push to main, and on demand.
 
 "on":
@@ -36,6 +36,7 @@ jobs:
       - name: Render animated contribution graph
         env:
           GH_USER: ${{ github.repository_owner }}
+          GH_TOKEN: ${{ github.token }}     # reads the PUBLIC calendar via GraphQL
         run: python scripts/generate_streak_svg.py "$GH_USER" contrib-heatmap.svg
 
       - name: Commit updated art
